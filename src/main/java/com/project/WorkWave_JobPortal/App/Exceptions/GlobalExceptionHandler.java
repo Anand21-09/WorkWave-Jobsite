@@ -11,7 +11,7 @@ import java.util.Map;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
-    @ExceptionHandler({UserNotFoundException.class,NullPointerException.class})
+    @ExceptionHandler({UserNotFoundException.class,NullPointerException.class,ApplicationNotFoundException.class})
     public ResponseEntity<Map<String,Object>> handleIllegalArgument(Exception exception){
         Map<String, Object> errorResponse = new HashMap<>();
         errorResponse.put("message",exception.getMessage());

@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/jobs")
+@RequestMapping("/api/jobs")
 public class JobController {
     public JobController(JobsService jobsService) {
         this.jobsService = jobsService;
@@ -53,5 +53,11 @@ public class JobController {
     public List<Jobs> getJobs(){
         return jobsService.getAllJobs();
     }
+    @GetMapping("/search")
+    public ResponseEntity<List<Jobs>> searchJobs(@RequestParam String keyword){
 
+        List<Jobs> jobs = jobsService.searchJobs(keyword);
+
+        return ResponseEntity.ok(jobs);
+    }
 }

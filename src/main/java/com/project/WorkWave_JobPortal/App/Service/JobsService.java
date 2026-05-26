@@ -84,4 +84,8 @@ public class JobsService {
         return jobRepo.findById(id).orElseThrow(()->new UserNotFoundException("user not found"));
 
     }
+
+    public List<Jobs> searchJobs(String keyword) {
+        return jobRepo.searchJobs(keyword);
+    }
 }
