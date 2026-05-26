@@ -15,6 +15,20 @@ public class Application {
     private String resumeLink;
     private String status;
     private LocalDate appliedDate;
+    @ManyToOne
+    private Jobs job;
+
+    public Application(Jobs job) {
+        this.job = job;
+    }
+
+    public Jobs getJob() {
+        return job;
+    }
+
+    public void setJob(Jobs job) {
+        this.job = job;
+    }
 
     public Application() {
     }
@@ -84,6 +98,7 @@ public class Application {
                 ", resumeLink='" + resumeLink + '\'' +
                 ", status='" + status + '\'' +
                 ", appliedDate=" + appliedDate +
+                ", job=" + job +
                 '}';
     }
 }
