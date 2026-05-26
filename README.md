@@ -38,6 +38,7 @@ src/main/java/com/project/WorkWave_JobPortal/App
 ├── Repository
 ├── Service
 └── WorkWaveJobPortalApplication
+
 Current APIs 📌
 Create Job
 POST /jobs
@@ -49,6 +50,7 @@ Update Job
 PUT /jobs/{id}
 Delete Job
 DELETE /jobs/{id}
+
 Upcoming Features 🚧
 Job Application System
 Resume Upload
@@ -62,12 +64,14 @@ JWT Authentication
 Role-Based Authorization
 Swagger API Documentation
 Deployment
+
 Goals of This Project 🎯
 Learn backend development deeply
 Understand REST API architecture
 Practice Spring Boot concepts
 Build an industry-level backend project
 Prepare for software engineering interviews
+
 How to Run the Project ▶️
 Clone Repository
 git clone YOUR_GITHUB_REPO_LINK
