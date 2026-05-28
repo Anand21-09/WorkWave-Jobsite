@@ -1,6 +1,8 @@
 package com.project.WorkWave_JobPortal.App.Service;
 
 import com.project.WorkWave_JobPortal.App.Exceptions.ApplicationNotFoundException;
+import com.project.WorkWave_JobPortal.App.Exceptions.DuplicateApplicationException;
+import com.project.WorkWave_JobPortal.App.Exceptions.JobNotFoundException;
 import com.project.WorkWave_JobPortal.App.Model.Application;
 import com.project.WorkWave_JobPortal.App.Model.Jobs;
 import com.project.WorkWave_JobPortal.App.Repository.ApplicationRepo;
@@ -8,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -22,9 +25,9 @@ public class ApplicationService {
         this.applicationRepo = applicationRepo;
     }
 
-    public Application createApplication(Application application) {
-        return applicationRepo.save(application);
-    }
+//    public Application createApplication(Application application) {
+//        return applicationRepo.save(application);
+//    }
 
     public List<Application> getAllApplications() {
         List<Application> applications = applicationRepo.findAll();
@@ -45,6 +48,20 @@ public class ApplicationService {
     public Application applyToJob(Long jobId, Application application){
 
         Jobs job = jobsService.getById(jobId);
+        if(job == null){
+            throw new JobNotFoundException("No such Jobs");
+        }
+        boolean alreadyApplied =
+                applicationRepo.existsApplication(
+                        application.getCandidateEmail(),
+                        jobId
+                );
+
+        if(alreadyApplied){
+            throw new DuplicateApplicationException(
+                    "Candidate already applied to this job"
+            );
+        }
 
         application.setJob(job);
 
@@ -53,5 +70,21 @@ public class ApplicationService {
         application.setStatus("APPLIED");
 
         return applicationRepo.save(application);
+    }
+
+    public List<Application> getAllApplicationsById(Long jobId) {
+
+        Jobs job = jobsService.getById(jobId);
+
+        List<Application> applications =
+                applicationRepo.findApplicationsByJobId(jobId);
+
+        if(applications.isEmpty()){
+            throw new ApplicationNotFoundException(
+                    "No applications to this job"
+            );
+        }
+
+        return applications;
     }
 }

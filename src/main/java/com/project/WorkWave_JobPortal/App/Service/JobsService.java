@@ -1,5 +1,6 @@
 package com.project.WorkWave_JobPortal.App.Service;
 
+import com.project.WorkWave_JobPortal.App.Exceptions.JobNotFoundException;
 import com.project.WorkWave_JobPortal.App.Exceptions.UserNotFoundException;
 import com.project.WorkWave_JobPortal.App.Model.Jobs;
 import com.project.WorkWave_JobPortal.App.Repository.JobRepo;
@@ -81,7 +82,7 @@ public class JobsService {
     }
 
     public Jobs getById(Long id) {
-        return jobRepo.findById(id).orElseThrow(()->new UserNotFoundException("user not found"));
+        return jobRepo.findById(id).orElseThrow(()->new JobNotFoundException("No such jobs"));
 
     }
 
