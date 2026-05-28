@@ -16,11 +16,11 @@ public class ApplicationController {
     @Autowired
     private ApplicationService applicationService;
 
-    @PostMapping
-    public ResponseEntity<Application> createApplication(@RequestBody Application application){
-        Application createdApplication = applicationService.createApplication(application);
-        return ResponseEntity.status(HttpStatus.CREATED).body(createdApplication);
-    }
+//    @PostMapping
+//    public ResponseEntity<Application> createApplication(@RequestBody Application application){
+//        Application createdApplication = applicationService.createApplication(application);
+//        return ResponseEntity.status(HttpStatus.CREATED).body(createdApplication);
+//    }
 
    @GetMapping
     public List<Application> getApplications(){
@@ -38,11 +38,27 @@ public class ApplicationController {
     @PostMapping("/{jobId}/apply")
     public ResponseEntity<Application> applyToJob(@PathVariable Long jobId,
                                                   @RequestBody Application application){
+        //Application createdApplication = applicationService.createApplication(application);
 
         Application savedApplication =
                 applicationService.applyToJob(jobId, application);
 
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(savedApplication);
+        //return ResponseEntity.status(HttpStatus.CREATED).body(createdApplication);
+    }
+    @GetMapping("/{jobId}/applicants")
+    public ResponseEntity<List<Application>> getApplicationsByJobId(
+            @PathVariable Long jobId){
+
+        List<Application> gotApplicants =
+                applicationService.getAllApplicationsById(jobId);
+
+        if(gotApplicants.isEmpty()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(gotApplicants);
     }
 }
