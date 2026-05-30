@@ -11,3 +11,6 @@ WorkWave is a job portal backend built with Spring Boot and MySQL. The project i
 * MySQL
 * Maven
 * REST APIs
+
+
+This project is actively under development new features are added regularly. :D
