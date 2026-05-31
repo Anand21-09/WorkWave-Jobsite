@@ -18,7 +18,7 @@ public class GlobalExceptionHandler {
         errorResponse.put("timestamp", LocalDateTime.now());
         errorResponse.put("error","Bad request");
         errorResponse.put("status", HttpStatus.BAD_REQUEST.value());
-        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
     }
     @ExceptionHandler({ApplicationNotFoundException.class})
     public ResponseEntity<Map<String,Object>> handleWrongArgs(Exception exception){
@@ -27,7 +27,7 @@ public class GlobalExceptionHandler {
         errorResponse.put("timestamp", LocalDateTime.now());
         errorResponse.put("error","No Such Applications");
         errorResponse.put("status", HttpStatus.NOT_FOUND.value());
-        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
     }
     @ExceptionHandler({JobNotFoundException.class})
     public ResponseEntity<Map<String,Object>> handleWrong1Args(Exception exception){
@@ -36,7 +36,7 @@ public class GlobalExceptionHandler {
         errorResponse.put("timestamp", LocalDateTime.now());
         errorResponse.put("error","No Such Jobs");
         errorResponse.put("status", HttpStatus.NOT_FOUND.value());
-        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
     }
     @ExceptionHandler({DuplicateApplicationException.class})
     public ResponseEntity<Map<String,Object>> handleWrong2Args(Exception exception){
